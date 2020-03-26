@@ -51,7 +51,6 @@ function writeStoreConfig(fs, config, project_dirname, SOURCE_DIR) {
         const exportData = `export default { \n${exportContent}}`;
         storeContent = importContent + exportData;
         fs.writeFileSync(storeConfig, storeContent);
-        callback && callback();
         readStream.destroy();
     });
 }
