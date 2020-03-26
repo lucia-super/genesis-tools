@@ -1,11 +1,11 @@
 
 var _ = require('lodash');
 
-function writeStore(fs, config, project_dirname, genesis_dirname) {
+function writeStore(fs, config, project_dirname, genesis_dirname, SOURCE_DIR) {
     const data = fs.readFileSync(genesis_dirname + "/template/store.js")
     if (data) {
         config.modules.forEach(element => {
-            const folder = project_dirname + "/src/" + config.storeFolder + "/" + element.name;
+            const folder = project_dirname + "/" + SOURCE_DIR + "/" + config.storeFolder + "/" + element.name;
             const isExist = fs.existsSync(folder);
             if (!isExist) {
                 fs.mkdirSync(folder);
@@ -20,9 +20,9 @@ function writeStore(fs, config, project_dirname, genesis_dirname) {
     }
 }
 
-function writeStoreConfig(fs, config, project_dirname, callback) {
+function writeStoreConfig(fs, config, project_dirname, SOURCE_DIR) {
     const readline = require('readline');
-    const storeConfig = project_dirname + "/src/" + config.storeFolder + "/index.js"
+    const storeConfig = project_dirname + "/" + SOURCE_DIR + "/" + config.storeFolder + "/index.js"
     const readStream = fs.createReadStream(storeConfig);
     const rl = readline.createInterface({
         input: readStream,

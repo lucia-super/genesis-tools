@@ -1,11 +1,11 @@
 
 var _ = require('lodash');
 
-function writeScreen(fs, config, project_dirname, genesis_dirname) {
+function writeScreen(fs, config, project_dirname, genesis_dirname, SOURCE_DIR) {
     const data = fs.readFileSync(genesis_dirname + "/template/list.vue", 'utf8')
     if (data) {
         config.modules.forEach(element => {
-            const folder = project_dirname + "/src/" + config.viewFolder + "/" + element.name;
+            const folder = project_dirname + "/" + SOURCE_DIR + "/" + config.viewFolder + "/" + element.name;
             const preHandledData = data.replace("$placeholder", element.name);
             const isExist = fs.existsSync(folder);
             if (!isExist) {
@@ -22,9 +22,9 @@ function writeScreen(fs, config, project_dirname, genesis_dirname) {
 }
 
 
-function writeScreenConfig(fs, config, project_dirname) {
+function writeScreenConfig(fs, config, project_dirname, SOURCE_DIR) {
     const readline = require('readline');
-    const screenConfig = project_dirname + "/src/" + config.routerFolder + "/index.js"
+    const screenConfig = project_dirname + "/" + SOURCE_DIR + "/" + config.routerFolder + "/index.js"
     const readStream = fs.createReadStream(screenConfig);
     const rl = readline.createInterface({
         input: readStream,
