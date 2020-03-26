@@ -1,18 +1,22 @@
 
 var _ = require('lodash');
 
-function writeScreen(fs, config, project_dirname, genesis_dirname, SOURCE_DIR) {
-    const data = fs.readFileSync(genesis_dirname + "/template/list.vue", 'utf8')
+function writeScreenBase(screenName, fs, config, project_dirname, genesis_dirname, SOURCE_DIR) {
+    const data = fs.readFileSync(genesis_dirname + "/template/" + screenName, 'utf8')
     if (data) {
         config.modules.forEach(element => {
-            const folder = project_dirname + "/" + SOURCE_DIR + "/" + config.viewFolder + "/" + element.name;
+            const targetFolder = project_dirname + "/" + SOURCE_DIR + "/" + config.viewFolder + "/" + element.name;
+            const targetFile = targetFolder + "/" + screenName;
+
             const preHandledData = data.replace("$placeholder", element.name);
-            const isExist = fs.existsSync(folder);
+
+            const isExist = fs.existsSync(targetFolder);
+            const isFileExist = fs.existsSync(targetFile);
             if (!isExist) {
-                fs.mkdirSync(folder);
-                fs.writeFileSync(folder + "/list.vue", preHandledData);
-            } else if (isExist && element.update) {
-                fs.writeFileSync(folder + "/list.vue", preHandledData);
+                fs.mkdirSync(targetFolder);
+            }
+            if (!isFileExist || (isFileExist && element.update)) {
+                fs.writeFileSync(targetFile, preHandledData);
             }
         });
     } else {
@@ -21,6 +25,10 @@ function writeScreen(fs, config, project_dirname, genesis_dirname, SOURCE_DIR) {
     }
 }
 
+function writeScreen(fs, config, project_dirname, genesis_dirname, SOURCE_DIR) {
+    writeScreenBase("list.vue", fs, config, project_dirname, genesis_dirname, SOURCE_DIR)
+    writeScreenBase("detail.vue", fs, config, project_dirname, genesis_dirname, SOURCE_DIR)
+}
 
 function writeScreenConfig(fs, config, project_dirname, SOURCE_DIR) {
     const readline = require('readline');
@@ -39,10 +47,11 @@ function writeScreenConfig(fs, config, project_dirname, SOURCE_DIR) {
             importedComponents.push({ key: line.split(" ")[1], value: line })
         }
     }).on('close', () => {
-        config.modules.forEach(element => {
-            if (_.filter(importedComponents, { key: element.name }).length === 0) {
-                importedComponents.push({ key: element.name, value: 'import ' + element.name + ' from "@/' + config.viewFolder + '/' + element.name + '/list.vue";' })
-                // importedComponents.push({ key: element.name, value: 'import ' + element.name + ' from "@/' + element.viewFolder + '/' + element.name + '/detail.vue";' })
+        config.modules.forEach(({ name }) => {
+            if (_.filter(importedComponents, { key: name }).length === 0) {
+                const detailKey = name + "Detail"
+                importedComponents.push({ key: name, value: 'import ' + name + ' from "@/' + config.viewFolder + '/' + name + '/list.vue";' });
+                importedComponents.push({ key: detailKey, value: 'import ' + detailKey + ' from "@/' + config.viewFolder + '/' + name + '/detail.vue";' });
             }
         });
 

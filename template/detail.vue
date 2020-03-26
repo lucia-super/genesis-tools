@@ -2,14 +2,15 @@
   <div class="container" />
 </template>
 <script>
-import baseList from "../../base/BaseDetail";
+  import BaseDetail from "../../base/BaseDetail";
 
-export default {
-  methods: {
-    initialize() {
-      this.moduleType = "$placeholder";
-      this.fetchDetail();
+  export default {
+    extends: BaseDetail,
+    methods: {
+      initialize() {
+        this.moduleType = "$placeholder";
+        this.fetchDetail();
+      }
     }
-  }
-};
+  };
 </script>
