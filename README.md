@@ -4,6 +4,7 @@
 ### npm i genesis-tools
 
 配置文件genesis.json, 需要新建此目录并配置如下：
+```
 {
     "name": "genesis",
     "sourceFolder": "src",
@@ -19,5 +20,6 @@
         "update": false
     }]
 }
+```
 
 注意modules是你需要创建的模块，具体用法参见项目genesis
