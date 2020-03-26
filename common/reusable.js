@@ -36,7 +36,8 @@ export const baseListMutations = {
   CHANGE_LIST_LOADING,
   SAVE_LIST_DATA,
   CHANGE_CURRENT_LOADING,
-  SAVE_CURRENT_DETAIL
+  SAVE_CURRENT_DETAIL,
+  MARKED_RELOAD
 }
 
 /**
@@ -80,6 +81,15 @@ export function SAVE_CURRENT_DETAIL(state, data) {
   state.current.data = data
 }
 
+/**
+ * 标记是否需要刷新列表
+ * @param {Object} state Vuex state
+ * @param {Boolean} value 是否需要刷新
+ */
+export function MARKED_RELOAD(state, value) {
+  state.needReload = value
+}
+
 
 /** 下面是针对loading more功能的扩展 */
 export const reusableLoadMoreListState = Object.assign({
@@ -87,11 +97,7 @@ export const reusableLoadMoreListState = Object.assign({
 }, generateBaseListState())
 
 export const reusableLoadMoreListMutations = Object.assign({
-  CHANGE_LIST_LOADING,
   SAVE_LOAD_MORE_LIST_DATA,
-  CHANGE_CURRENT_LOADING,
-  SAVE_CURRENT_DETAIL,
-  MARKED_RELOAD
 }, baseListMutations)
 
 /**
@@ -115,15 +121,6 @@ export function SAVE_LOAD_MORE_LIST_DATA(state, { data, pagination, conditions, 
     state.list.pagination.amount = pagination.amount
     state.list.pagination.totalPages = ceil(pagination.amount / state.list.pagination.size)
   }
-}
-
-/**
- * 标记是否需要刷新列表
- * @param {Object} state Vuex state
- * @param {Boolean} value 是否需要刷新
- */
-export function MARKED_RELOAD(state, value) {
-  state.needReload = value
 }
 
 /** actions **/
