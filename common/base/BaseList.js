@@ -4,8 +4,10 @@ import { cloneDeep, forEach } from 'lodash'
 export default {
     name: 'BaseList',
     beforeRouteEnter(to, from, next) {
-        // TODO 通用扩展
-        next(() => {
+        next(vm => {
+            if (vm.needReload && vm.reloadData) {
+                vm.reloadData()
+            }
         })
     },
     computed: {
@@ -25,7 +27,8 @@ export default {
         }),
         pagination() { return this.list.pagination },
         loading() { return this.list.loading || false },
-        listData() { return this.list.data || [] }
+        listData() { return this.list.data || [] },
+        needReload(state) { return state[this.moduleType].needReload || false } // 是否需要更新列表
     },
 
     created() {
@@ -48,12 +51,37 @@ export default {
                 if (this.moduleType) {
                     dispatch(`${this.moduleType}/setCurrent`, itemData)
                 }
+            },
+            /**
+             * 更新列表数据，目前三个模块的更新方法统一命名为reloadData，所以在这里配置
+             * @param {Dispatch} dispatch dispatch
+             */
+            reloadData: function (dispatch) {
+                if (this.moduleType) {
+                    dispatch(`${this.moduleType}/reloadData`)
+                }
             }
         }),
         /**
          * 初始化列表
          */
-        initialize() { },
+        initialize() {
+            this.fetchList();
+        },
+        /**
+         * 页码发生变化
+         * @param {Number} newPage 变化后的页码
+         */
+        onChangePage(newPage) {
+            this.fetchList(newPage)
+        },
+        /**
+        * 加载更多功能，这里跟其他列表不一样，针对loadmore功能定制方法
+        */
+        onLoadMore() {
+            const { currentPage } = this.pagination
+            this.onChangePage(currentPage + 1)
+        },
         gotoDetail() {
             this.$router.push(this.moduleType + "Detail");
         }

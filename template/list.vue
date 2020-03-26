@@ -10,15 +10,14 @@
   </div>
 </template>
 <script>
-  import baseList from "../../base/BaseList";
+import baseList from "../../base/BaseList";
 
-  export default {
-    extends: baseList,
-    methods: {
-      initialize() {
-        this.moduleType = "$placeholder";
-        this.fetchList();
-      }
-    }
-  };
+export default {
+  extends: baseList,
+  data() {
+    return {
+      moduleType: "$placeholder"
+    };
+  }
+};
 </script>

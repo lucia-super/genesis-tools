@@ -2,11 +2,7 @@ import { mapState, mapActions } from 'vuex'
 import { cloneDeep, forEach } from 'lodash'
 
 export default {
-    name: 'BaseList',
-    beforeRouteEnter(to, from, next) {
-        // TODO 通用扩展
-        next()
-    },
+    name: 'BaseDetail',
     computed: {
         ...mapState({
             detail(state) {
@@ -43,6 +39,8 @@ export default {
         /**
          * 初始化列表
          */
-        initialize() { },
+        initialize() {
+            this.fetchDetail();
+        },
     }
 }

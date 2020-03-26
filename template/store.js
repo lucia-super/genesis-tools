@@ -1,4 +1,4 @@
-import { generateBaseListState, baseListMutations } from '../../reusable'
+import { generateBaseListState, baseListMutations, reloadCurrentList } from '../../reusable'
 
 export default {
     namespaced: true,
@@ -21,5 +21,12 @@ export default {
             // commit('SAVE_CURRENT_DETAIL', response)
             commit('CHANGE_CURRENT_LOADING', false)
         },
+        /**
+         * 重新加载当前教练的列表数据
+         * @param {Object} global environment
+         */
+        reloadData(global) {
+            reloadCurrentList(global, 'fetchList', 'MARKED_RELOAD')
+        }
     }
 }
