@@ -1,5 +1,8 @@
 import { ceil } from 'lodash';
 
+/**
+ * 分页数据的默认结构
+ */
 const DEFAULT_PAGINATION = {
   size: 10,
   currentPage: 1,
