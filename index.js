@@ -1,14 +1,14 @@
 var _ = require('lodash');
 var fs = require('fs');
 const path = require("path");
-
-//读取配置文件，变量config的类型是Object类型
-var config = require('../genesis');
-
 //工程目录
-const project_dirname = path.dirname(__dirname)
+let project_dirname = path.dirname(__dirname)
+project_dirname = path.dirname(project_dirname)
 //当前目录
 const genesis_dirname = __dirname
+
+//读取配置文件，变量config的类型是Object类型
+var config = require(project_dirname + '/genesis');
 
 // 根据配置文件创建store模块
 const store = require("./scripts/store");
