@@ -1,5 +1,11 @@
-import { ceil } from 'lodash'
-const DEFAULT_PAGINATION = 10;
+import { ceil } from 'lodash';
+
+const DEFAULT_PAGINATION = {
+  size: 10,
+  currentPage: 1,
+  amount: 0,
+  totalPages: 0
+}
 
 /**
  * 生成BaseList的state结构
@@ -25,27 +31,32 @@ export function generateBaseListState() {
 
 export const baseListMutations = {
   CHANGE_LIST_LOADING,
+  SAVE_LIST_DATA,
   CHANGE_CURRENT_LOADING,
-  SAVE_LISTDATA_PAGINATION_AND_CONDITIONS,
   SAVE_CURRENT_DETAIL
 }
 
 /**
- * 修改模块的loading状态
+ * 修改列表loading状态
  * @param {Object} state Vuex state
  * @param {Boolean} loading 加载中
  */
-export function CHANGE_LOADING(state, loading) {
-  state.loading = loading
+export function CHANGE_LIST_LOADING(state, loading) {
+  state.list.loading = loading
 }
 
 /**
- * 保存数据
+ * 保存列表数据、分页信息和查询条件
  * @param {Object} state Vuex state
- * @param {Object} data 数据对象
+ * @param {Object} payload vuex action payload
+ * @param {Array<Object>} payload.data 列表数据
+ * @param {Object} payload.pagination 分页信息
+ * @param {Object} payload.conditions 查询条件
  */
-export function SAVE_DATA(state, data) {
-  state.data = data
+export function SAVE_LIST_DATA(state, { data, pagination, conditions }) {
+  state.list.data = data || []
+  state.list.pagination = pagination || DEFAULT_PAGINATION
+  state.list.conditions = conditions || {}
 }
 
 /**
@@ -66,75 +77,16 @@ export function SAVE_CURRENT_DETAIL(state, data) {
   state.current.data = data
 }
 
-/**
- * 修改列表loading状态
- * @param {Object} state Vuex state
- * @param {Boolean} loading 加载中
- */
-export function CHANGE_LIST_LOADING(state, loading) {
-  state.list.loading = loading
-}
-
-/**
- * 保存列表数据、分页信息和查询条件
- * @param {Object} state Vuex state
- * @param {Object} payload vuex action payload
- * @param {Array<Object>} payload.data 列表数据
- * @param {Object} payload.pagination 分页信息
- * @param {Object} payload.conditions 查询条件
- */
-export function SAVE_LISTDATA_PAGINATION_AND_CONDITIONS(state, { data, pagination, conditions }) {
-  state.list.data = data || []
-  state.list.pagination = pagination || DEFAULT_PAGINATION
-  state.list.conditions = conditions || {}
-}
-
-/**
- * 保存列表数据
- * @param {Object} state Vuex state
- * @param {Array<Object>} list 列表数据
- */
-export function SAVE_LIST_DATA(state, list) {
-  state.list = list || []
-}
-
-/**
- * 保存列表数据
- * @param {Object} state Vuex state
- * @param {Array<Object>} list 列表数据
- */
-export function SAVE_DATA_IN_LIST(state, list) {
-  state.list.data = list || []
-}
-
-/**
- * 保存分页信息
- * @param {Object} state Vuex state
- * @param {Object} pagination 分页信息
- */
-export function SAVE_PAGINATION(state, pagination) {
-  state.pagination = pagination
-}
-
-/**
- * 保存查询条件
- * @param {Object} state Vuex state
- * @param {Object} conditions 查询条件
- */
-export function SAVE_FILTER_VALUE(state, conditions) {
-  state.conditions = conditions
-}
 
 /** 下面是针对loading more功能的扩展 */
-
 export const reusableLoadMoreListState = Object.assign({
   needReload: false
 }, generateBaseListState())
 
 export const reusableLoadMoreListMutations = Object.assign({
   CHANGE_LIST_LOADING,
+  SAVE_LOAD_MORE_LIST_DATA,
   CHANGE_CURRENT_LOADING,
-  SAVE_LOADMORE_LISTDATA_PAGINATION_AND_CONDITIONS,
   SAVE_CURRENT_DETAIL,
   MARKED_RELOAD
 }, baseListMutations)
@@ -146,7 +98,7 @@ export const reusableLoadMoreListMutations = Object.assign({
  * @param {Array<Object>} payload.data 列表数据
  * @param {Object} payload.pagination 分页信息
  */
-export function SAVE_LOADMORE_LISTDATA_PAGINATION_AND_CONDITIONS(state, { data, pagination, conditions, isReload }) {
+export function SAVE_LOAD_MORE_LIST_DATA(state, { data, pagination, conditions, isReload }) {
   state.list.conditions = conditions || {}
   if (!isReload) {
     if (pagination.currentPage > 1) {
@@ -163,7 +115,7 @@ export function SAVE_LOADMORE_LISTDATA_PAGINATION_AND_CONDITIONS(state, { data, 
 }
 
 /**
- * 标记是否需要刷新
+ * 标记是否需要刷新列表
  * @param {Object} state Vuex state
  * @param {Boolean} value 是否需要刷新
  */
