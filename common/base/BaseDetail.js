@@ -44,5 +44,8 @@ export default {
          * 初始化列表
          */
         initialize() { },
+        gotoDetail() {
+            this.$router.push(this.moduleType + "Detail");
+        }
     }
 }
