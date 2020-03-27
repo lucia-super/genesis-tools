@@ -24,7 +24,7 @@ export default {
                     totalPages: 1
                 }
             }
-            const { result: data, ...pagination } = mockData
+            const { result: data, pagination } = mockData
             commit('SAVE_LIST_DATA', { data, pagination, conditions: payload.conditions })
 
             commit('CHANGE_LIST_LOADING', false)
