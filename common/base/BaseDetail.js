@@ -7,14 +7,14 @@ export default {
         ...mapState({
             detail(state) {
                 const modules = this.moduleType.split('/')
-                let currentListState = cloneDeep(state[modules[0]])
+                let currentState = cloneDeep(state[modules[0]])
                 if (modules && modules.length > 1) { // 当在某个模块的非一级节点上时，需要根据模块名称一层层找到当前的state节点
                     forEach(modules, (item, index) => {
                         if (index === 0) return
-                        currentListState = currentListState[item]
+                        currentState = currentState[item]
                     })
                 }
-                return currentListState ? currentListState.list : {}
+                return currentState ? currentState.current : {}
             }
         })
     },

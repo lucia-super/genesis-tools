@@ -3,6 +3,12 @@ import { cloneDeep, forEach } from 'lodash'
 
 export default {
     name: 'BaseList',
+    /**
+     * 这里判断当前列表是否需要刷新，如果需要，则自动更新列表
+     * @param {Object} to 当前路径
+     * @param {Object} from 来自哪里
+     * @param {Function} next 继续执行的方法
+     */
     beforeRouteEnter(to, from, next) {
         next(vm => {
             if (vm.needReload && vm.reloadData) {
@@ -14,16 +20,15 @@ export default {
         ...mapState({
             list(state) {
                 const modules = this.moduleType.split('/')
-                let currentListState = cloneDeep(state[modules[0]])
+                let currentState = cloneDeep(state[modules[0]])
                 if (modules && modules.length > 1) { // 当在某个模块的非一级节点上时，需要根据模块名称一层层找到当前的state节点
                     forEach(modules, (item, index) => {
                         if (index === 0) return
-                        currentListState = currentListState[item]
+                        currentState = currentState[item]
                     })
                 }
-                return currentListState ? currentListState.list : {}
-            },
-            domainArea: state => state.global.domainArea
+                return currentState ? currentState.list : {}
+            }
         }),
         pagination() { return this.list.pagination },
         loading() { return this.list.loading || false },
@@ -37,6 +42,12 @@ export default {
 
     methods: {
         ...mapActions({
+            /**
+            * 获取列表数据：
+            * 分页信息由请求带入
+            * 条件数据是当前页面面数据中的data中的对象，如果没有定义，这里就是空的
+            * @param {Dispatch} dispatch dispatch
+            */
             fetchList: function (dispatch, page = 1) {
                 if (this.moduleType) {
                     dispatch(`${this.moduleType}/fetchList`, {
@@ -45,11 +56,6 @@ export default {
                             conditions: this.conditions
                         }
                     })
-                }
-            },
-            setCurrent: function (dispatch, itemData) {
-                if (this.moduleType) {
-                    dispatch(`${this.moduleType}/setCurrent`, itemData)
                 }
             },
             /**
@@ -72,18 +78,21 @@ export default {
          * 页码发生变化
          * @param {Number} newPage 变化后的页码
          */
-        onChangePage(newPage) {
+        onPageChange(newPage) {
             this.fetchList(newPage)
         },
         /**
-        * 加载更多功能，这里跟其他列表不一样，针对loadmore功能定制方法
+         * 默认的去详情页面
+         */
+        gotoDetail() {
+            this.$router.push(this.moduleType + "Detail");
+        },
+        /**
+        * 加载更多功能，这里跟其他列表不一样，针对load more功能定制方法
         */
         onLoadMore() {
             const { currentPage } = this.pagination
-            this.onChangePage(currentPage + 1)
-        },
-        gotoDetail() {
-            this.$router.push(this.moduleType + "Detail");
+            this.onPageChange(currentPage + 1)
         }
     }
 }

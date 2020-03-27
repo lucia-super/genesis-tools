@@ -11,14 +11,20 @@ export default {
     actions: {
         fetchList({ commit }) {
             commit('CHANGE_LIST_LOADING', true)
-            const data = [{ key: "template1", value: "1" }, { key: "template2", value: "2" }, { key: "template3", value: "4" }]
+            const mockData = [
+                { key: "template1", value: "1" },
+                { key: "template2", value: "2" },
+                { key: "template3", value: "4" }]
             const pagination = 10
-            commit('SAVE_LIST_DATA', { data, pagination })
+            commit('SAVE_LIST_DATA', { data: mockData, pagination })
             commit('CHANGE_LIST_LOADING', false)
         },
         fetchDetail({ commit }) {
             commit('CHANGE_CURRENT_LOADING', true)
-            // commit('SAVE_CURRENT_DETAIL', response)
+            const mockData = {
+                name: "templagte 1 detail"
+            }
+            commit('SAVE_CURRENT_DETAIL', mockData)
             commit('CHANGE_CURRENT_LOADING', false)
         },
         /**
