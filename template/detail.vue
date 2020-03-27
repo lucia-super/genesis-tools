@@ -1,5 +1,7 @@
 <template>
-  <div class="container" />
+  <div class="container">
+    {{ this.detail }}
+  </div>
 </template>
 <script>
   import BaseDetail from "../../base/BaseDetail";
