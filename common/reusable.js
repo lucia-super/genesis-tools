@@ -5,7 +5,7 @@ import { ceil } from 'lodash';
  */
 const DEFAULT_PAGINATION = {
   size: 10,
-  currentPage: 1,
+  page: 1,
   amount: 0,
   totalPages: 0
 }
@@ -107,7 +107,7 @@ export const reusableLoadMoreListMutations = Object.assign({
 export function SAVE_LOAD_MORE_LIST_DATA(state, { data, pagination, conditions, isReload }) {
   state.list.conditions = conditions || {}
   if (!isReload) {
-    if (pagination.currentPage > 1) {
+    if (pagination.page > 1) {
       state.list.data = state.list.data.concat(data)
     } else {
       state.list.data = data || []
@@ -128,13 +128,13 @@ export function SAVE_LOAD_MORE_LIST_DATA(state, { data, pagination, conditions, 
  * @param {String} markedKey reload 的标记名字
  */
 export function reloadCurrentList({ state, dispatch, commit }, methodName, markedKey) {
-  const { pagination: { currentPage, size }, conditions } = state.list
+  const { pagination: { page, size }, conditions } = state.list
   dispatch(methodName, {
     payload: {
       conditions,
       pagination: {
         page: 1,
-        size: size * currentPage
+        size: size * page
       },
       isReload: true
     }

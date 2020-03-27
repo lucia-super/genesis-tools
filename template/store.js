@@ -19,7 +19,7 @@ export default {
                     { key: "template3", value: "4" }],
                 pagination: {
                     size: 10,
-                    currentPage: 1,
+                    page: payload.pagination.page,
                     amount: 3,
                     totalPages: 1
                 }

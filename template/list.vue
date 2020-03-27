@@ -12,13 +12,11 @@
 
     <ul style="list-style: none; display: flex;">
       <li>
-        {{ pagination.currentPage }}
+        {{ pagination.page }}
       </li>
-      <a
-        href="javascript:void(0);"
-        @click="onPageChange(pagination.currentPage + 1)"
-        >下一页</a
-      >
+      <a href="javascript:void(0);" @click="onPageChange(pagination.page + 1)">
+        下一页
+      </a>
     </ul>
   </div>
 </template>
