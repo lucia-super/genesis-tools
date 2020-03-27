@@ -9,7 +9,7 @@ export default {
     },
 
     actions: {
-        fetchList({ commit }, { payload, onSuccess, onError, onComplete } = {}) {
+        fetchList({ commit }, { payload } = {}) {
             commit('CHANGE_LIST_LOADING', true)
             // TODO api request
             const mockData = {
