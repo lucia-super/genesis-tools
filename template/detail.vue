@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     {{ this.detail }}
-    <button type="button" @click="onBack()">back</button>
+    <a href="javascript:void(0);" @click="onBack()">back</a>
   </div>
 </template>
 <script>
