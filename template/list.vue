@@ -2,7 +2,7 @@
   <div class="container">
     <div style="list-style: none; display: flex; margin: 20px">
       <label>name: </label> <input type="text" :value="conditions.value" />
-      <button type="button" @click="fetchList()">seach</button>
+      <button type="button" @click="fetchList()">search</button>
     </div>
 
     <table width="100%" height="100px" border="1px">

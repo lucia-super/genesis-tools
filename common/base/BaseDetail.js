@@ -42,5 +42,8 @@ export default {
         initialize() {
             this.fetchDetail();
         },
+        onBack() {
+            this.$router.back()
+        }
     }
 }
