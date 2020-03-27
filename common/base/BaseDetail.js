@@ -40,7 +40,7 @@ export default {
          * 初始化列表
          */
         initialize() {
-            this.fetchDetail();
+            this.fetchDetail()
         },
         onBack() {
             this.$router.back()
