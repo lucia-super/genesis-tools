@@ -33,7 +33,7 @@ export default {
         pagination() { return this.list.pagination },
         loading() { return this.list.loading || false },
         listData() { return this.list.data || [] },
-        needReload(state) { return state[this.moduleType].needReload || false } // 是否需要更新列表
+        needReload() { return this.list.needReload } // 是否需要更新列表
     },
 
     created() {

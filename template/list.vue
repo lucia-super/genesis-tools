@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <table width="100%" height="100px" border="1px">
-      <tr v-for="item in listData" :key="item">
+      <tr v-for="(item, index) in listData" :key="item + index">
         <td>{{ item.key }}</td>
         <td>{{ item.value }}</td>
         <td>
@@ -9,6 +9,17 @@
         </td>
       </tr>
     </table>
+
+    <ul style="list-style: none; display: flex;">
+      <li>
+        {{ pagination.currentPage }}
+      </li>
+      <a
+        href="javascript:void(0);"
+        @click="onPageChange(pagination.currentPage + 1)"
+        >下一页</a
+      >
+    </ul>
   </div>
 </template>
 <script>

@@ -23,7 +23,8 @@ export function generateBaseListState() {
       data: [], // 列表数据
       pagination: DEFAULT_PAGINATION, // 列表的分页信息
       conditions: {}, // 列表的查询条件
-      loading: false // 列表的loading状态
+      loading: false,// 列表的loading状态,
+      needReload: false
     },
     current: {
       data: {}, // 当前查看的项的信息
@@ -87,15 +88,11 @@ export function SAVE_CURRENT_DETAIL(state, data) {
  * @param {Boolean} value 是否需要刷新
  */
 export function MARKED_RELOAD(state, value) {
-  state.needReload = value
+  state.list.needReload = value
 }
 
 
 /** 下面是针对loading more功能的扩展 */
-export const reusableLoadMoreListState = Object.assign({
-  needReload: false
-}, generateBaseListState())
-
 export const reusableLoadMoreListMutations = Object.assign({
   SAVE_LOAD_MORE_LIST_DATA,
 }, baseListMutations)
