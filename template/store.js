@@ -9,22 +9,34 @@ export default {
     },
 
     actions: {
-        fetchList({ commit }) {
+        fetchList({ commit }, { payload, onSuccess, onError, onComplete } = {}) {
             commit('CHANGE_LIST_LOADING', true)
-            const mockData = [
-                { key: "template1", value: "1" },
-                { key: "template2", value: "2" },
-                { key: "template3", value: "4" }]
-            const pagination = 10
-            commit('SAVE_LIST_DATA', { data: mockData, pagination })
+            // TODO api request
+            const mockData = {
+                result: [
+                    { key: "template1", value: "1" },
+                    { key: "template2", value: "2" },
+                    { key: "template3", value: "4" }],
+                pagination: {
+                    size: 10,
+                    currentPage: 1,
+                    amount: 3,
+                    totalPages: 1
+                }
+            }
+            const { result: data, ...pagination } = mockData
+            commit('SAVE_LIST_DATA', { data, pagination, conditions: payload.conditions })
+
             commit('CHANGE_LIST_LOADING', false)
         },
         fetchDetail({ commit }) {
             commit('CHANGE_CURRENT_LOADING', true)
+            // TODO api request
             const mockData = {
                 name: "templagte 1 detail"
             }
             commit('SAVE_CURRENT_DETAIL', mockData)
+
             commit('CHANGE_CURRENT_LOADING', false)
         },
         /**
