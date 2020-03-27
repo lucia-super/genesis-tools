@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+    <div style="list-style: none; display: flex; margin: 20px">
+      <label>name: </label> <input type="text" :value="conditions.value" />
+      <button type="button" @click="fetchList()">seach</button>
+    </div>
+
     <table width="100%" height="100px" border="1px">
       <tr v-for="(item, index) in listData" :key="item + index">
         <td>{{ item.key }}</td>
@@ -27,7 +32,10 @@
     extends: baseList,
     data() {
       return {
-        moduleType: "$placeholder"
+        moduleType: "$placeholder",
+        conditions: {
+          value: "123"
+        }
       };
     }
   };
