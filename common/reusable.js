@@ -15,9 +15,7 @@ const DEFAULT_PAGINATION = {
  * @returns {Object}
  */
 export function generateBaseListState() {
-  // 参考资料：https://vuex.vuejs.org/zh/guide/modules.html#%E6%A8%A1%E5%9D%97%E9%87%8D%E7%94%A8
   // 如果我们使用一个纯对象来声明模块的状态，那么这个状态对象会通过引用被共享，导致状态对象被修改时 store 或模块间数据互相污染的问题
-  // 因此解决办法也是相同的——使用一个函数来声明模块状态（仅 2.3.0 + 支持）
   return {
     list: {
       data: [], // 列表数据
