@@ -39,6 +39,36 @@ export default {
 
             commit('CHANGE_CURRENT_LOADING', false)
         },
+        createEntry({ commit }) {
+            commit('CHANGE_CURRENT_LOADING', true)
+            // TODO api request
+            const mockData = {
+                name: "templagte 1 detail"
+            }
+            commit('SAVE_CURRENT_DETAIL', mockData)
+
+            commit('CHANGE_CURRENT_LOADING', false)
+        },
+        updateEntry({ commit }) {
+            commit('CHANGE_CURRENT_LOADING', true)
+            // TODO api request
+            const mockData = {
+                name: "templagte 1 detail"
+            }
+            commit('SAVE_CURRENT_DETAIL', mockData)
+
+            commit('CHANGE_CURRENT_LOADING', false)
+        },
+        deleteEntry({ commit }) {
+            commit('CHANGE_CURRENT_LOADING', true)
+            // TODO api request
+            const mockData = {
+                name: "templagte 1 detail"
+            }
+            commit('SAVE_CURRENT_DETAIL', mockData)
+
+            commit('CHANGE_CURRENT_LOADING', false)
+        },
         /**
          * 重新加载当前教练的列表数据
          * @param {Object} global environment

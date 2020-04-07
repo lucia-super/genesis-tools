@@ -1,8 +1,9 @@
 import { mapState, mapActions } from 'vuex'
 import { cloneDeep, forEach } from 'lodash'
-
+import Base from "./Base";
 export default {
     name: 'BaseList',
+    extends: Base,
     /**
      * 这里判断当前列表是否需要刷新，如果需要，则自动更新列表
      * @param {Object} to 当前路径
@@ -19,14 +20,7 @@ export default {
     computed: {
         ...mapState({
             list(state) {
-                const modules = this.moduleType.split('/')
-                let currentState = cloneDeep(state[modules[0]])
-                if (modules && modules.length > 1) { // 当在某个模块的非一级节点上时，需要根据模块名称一层层找到当前的state节点
-                    forEach(modules, (item, index) => {
-                        if (index === 0) return
-                        currentState = currentState[item]
-                    })
-                }
+                let currentState = getCurrentState(state, this.moduleType)
                 return currentState ? currentState.list : {}
             }
         }),
