@@ -1,5 +1,4 @@
 import { mapState, mapActions } from 'vuex'
-import { cloneDeep, forEach } from 'lodash'
 import Base from "./Base";
 export default {
     name: 'BaseList',
@@ -20,7 +19,7 @@ export default {
     computed: {
         ...mapState({
             list(state) {
-                let currentState = getCurrentState(state, this.moduleType)
+                let currentState = this.getCurrentState(state, this.moduleType)
                 return currentState ? currentState.list : {}
             }
         }),

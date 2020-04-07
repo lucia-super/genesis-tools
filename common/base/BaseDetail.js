@@ -5,7 +5,7 @@ export default {
     computed: {
         ...mapState({
             detail(state) {
-                let currentState = getCurrentState(state, this.moduleType)
+                let currentState = this.getCurrentState(state, this.moduleType)
                 return currentState ? currentState.current : {}
             }
         })
