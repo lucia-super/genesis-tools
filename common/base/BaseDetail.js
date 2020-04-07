@@ -1,7 +1,9 @@
 import { mapState, mapActions } from 'vuex'
+import Base from "./Base";
 
 export default {
     name: 'BaseDetail',
+    extends: Base,
     computed: {
         ...mapState({
             detail(state) {
