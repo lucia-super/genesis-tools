@@ -1,8 +1,9 @@
 import axios from "axios"
+import Constants from "../Constants"
 
 //TODO 创建实例时设置配置的默认值
 var instance = axios.create({
-    baseURL: 'https://api.example.com'
+    baseURL: Constants.baseURL
 });
 instance.defaults.headers.common['Authorization'] = "AUTH_TOKEN";
 instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
