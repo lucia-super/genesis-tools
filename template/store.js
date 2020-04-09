@@ -12,7 +12,6 @@ export default {
     actions: {
         fetchList({ commit }, { payload } = {}) {
             commit('CHANGE_LIST_LOADING', true)
-            // TODO api request
             request("@placeholder_list", "GET", payload).then((response) => {
                 const { result: data, pagination } = response.data
                 commit('SAVE_LIST_DATA', { data, pagination, conditions: payload.conditions })
@@ -24,13 +23,8 @@ export default {
         },
         fetchDetail({ commit }, payload) {
             commit('CHANGE_CURRENT_LOADING', true)
-            // TODO api request
             request("@placeholder_get", "GET", payload).then((response) => {
-                console.log(response)
-                const mockData = {
-                    name: "templagte 1 detail"
-                }
-                commit('SAVE_CURRENT_DETAIL', mockData)
+                commit('SAVE_CURRENT_DETAIL', response.data)
             }).catch((error) => {
                 console.warn(error)
                 //TODO
@@ -39,13 +33,8 @@ export default {
         },
         createEntry({ commit }, payload) {
             commit('CHANGE_CURRENT_LOADING', true)
-            // TODO api request
             request("@placeholder_edit", "POST", payload).then((response) => {
-                console.log(response)
-                const mockData = {
-                    name: "templagte 1 detail"
-                }
-                commit('SAVE_CURRENT_DETAIL', mockData)
+                commit('SAVE_CURRENT_DETAIL', response.data)
             }).catch((error) => {
                 console.warn(error)
                 //TODO
@@ -54,34 +43,22 @@ export default {
         },
         updateEntry({ commit }, payload) {
             commit('CHANGE_CURRENT_LOADING', true)
-            // TODO api request
             request("@placeholder_edit", "PUT", payload).then((response) => {
-                console.log(response)
-                const mockData = {
-                    name: "templagte 1 detail"
-                }
-                commit('SAVE_CURRENT_DETAIL', mockData)
+                commit('SAVE_CURRENT_DETAIL', response.data)
             }).catch((error) => {
                 console.warn(error)
                 //TODO
             })
-
             commit('CHANGE_CURRENT_LOADING', false)
         },
         deleteEntry({ commit }, payload) {
             commit('CHANGE_CURRENT_LOADING', true)
-            // TODO api request
             request("@placeholder_delete", "DELETE", payload).then((response) => {
-                console.log(response)
-                const mockData = {
-                    name: "templagte 1 detail"
-                }
-                commit('SAVE_CURRENT_DETAIL', mockData)
+                commit('SAVE_CURRENT_DETAIL', null)
             }).catch((error) => {
                 console.warn(error)
                 //TODO
             })
-
             commit('CHANGE_CURRENT_LOADING', false)
         },
         /**
