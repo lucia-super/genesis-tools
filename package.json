@@ -1,7 +1,7 @@
 {
   "name": "genesis-tools",
   "description": "auto generate business structure",
-  "version": "0.1.19alpha03",
+  "version": "0.1.19alpha05",
   "scripts": {
     "start": "node index"
   },
