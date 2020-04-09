@@ -24,7 +24,7 @@
        * 默认的去编辑页面
        */
       gotoEdit() {
-        this.$router.push(this.moduleType + "/edit");
+        this.$router.push({ name: this.moduleType + "Edit" });
       },
     },
   };
