@@ -25,7 +25,7 @@ instance.interceptors.response.use(function (response) {
     return Promise.reject(error);
 });
 
-const request = (url, method, data) => {
+function request(url, method, data) {
     return instance({
         url,
         method,
@@ -33,4 +33,4 @@ const request = (url, method, data) => {
     });
 }
 
-export default { request }
+export default request

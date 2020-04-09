@@ -1,5 +1,5 @@
 import { generateBaseListState, baseListMutations, reloadCurrentList } from '@/reusable'
-import { request } from '@/base/request'
+import request from '@/base/request'
 
 export default {
     namespaced: true,

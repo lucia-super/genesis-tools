@@ -45,7 +45,7 @@ function writeScreenConfig(fs, config, project_dirname, SOURCE_DIR) {
     let storeContent = "";
     rl.on('line', (line) => {
         if (line.indexOf("import") > -1) {
-            importedComponents.push({ key: line.split(" ")[1], value: line })
+            importedComponents.push({ key: line.split(" ")[1], value: line, path: line.split(" ")[1].toLowerCase() })
         }
     }).on('close', () => {
         config.modules.forEach(({ name }) => {
