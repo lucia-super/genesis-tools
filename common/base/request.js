@@ -1,6 +1,6 @@
 import axios from "axios"
 
-// 创建实例时设置配置的默认值
+//TODO 创建实例时设置配置的默认值
 var instance = axios.create({
     baseURL: 'https://api.example.com'
 });
