@@ -78,7 +78,7 @@ export default {
          * 默认的去详情页面
          */
         gotoDetail() {
-            this.$router.push(this.moduleType + "Detail");
+            this.$router.push(this.moduleType + "/detail");
         },
         /**
         * 加载更多功能，这里跟其他列表不一样，针对load more功能定制方法
