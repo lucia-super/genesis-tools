@@ -53,7 +53,7 @@ export default {
         },
         deleteEntry({ commit }, payload) {
             commit('CHANGE_CURRENT_LOADING', true)
-            request("@placeholder_delete", "DELETE", payload).then((response) => {
+            request("@placeholder_delete", "DELETE", payload).then(() => {
                 commit('SAVE_CURRENT_DETAIL', null)
             }).catch((error) => {
                 console.warn(error)

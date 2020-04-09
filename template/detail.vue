@@ -12,7 +12,7 @@
     methods: {
       initialize() {
         this.moduleType = "@placeholder";
-        this.fetchDetail();
+        this.fetchDetail(1);
       },
     },
   };
