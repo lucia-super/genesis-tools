@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div style="list-style: none; display: flex; margin: 20px">
+    <div style="list-style: none; display: flex; margin: 20px;">
       <label>name: </label> <input type="text" :value="conditions.value" />
       <button type="button" @click="fetchList()">search</button>
     </div>
@@ -32,11 +32,11 @@
     extends: baseList,
     data() {
       return {
-        moduleType: "$placeholder",
+        moduleType: "@placeholder",
         conditions: {
-          value: "123"
-        }
+          value: "123",
+        },
       };
-    }
+    },
   };
 </script>

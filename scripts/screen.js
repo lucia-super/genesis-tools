@@ -8,7 +8,7 @@ function writeScreenBase(screenName, fs, config, project_dirname, genesis_dirnam
             const targetFolder = project_dirname + "/" + SOURCE_DIR + "/" + config.viewFolder + "/" + element.name;
             const targetFile = targetFolder + "/" + screenName;
 
-            const preHandledData = data.replace("$placeholder", element.name);
+            const preHandledData = data.replace("@placeholder", element.name);
 
             const isExist = fs.existsSync(targetFolder);
             const isFileExist = fs.existsSync(targetFile);
@@ -28,6 +28,7 @@ function writeScreenBase(screenName, fs, config, project_dirname, genesis_dirnam
 function writeScreen(fs, config, project_dirname, genesis_dirname, SOURCE_DIR) {
     writeScreenBase("list.vue", fs, config, project_dirname, genesis_dirname, SOURCE_DIR)
     writeScreenBase("detail.vue", fs, config, project_dirname, genesis_dirname, SOURCE_DIR)
+    writeScreenBase("edit.vue", fs, config, project_dirname, genesis_dirname, SOURCE_DIR)
 }
 
 function writeScreenConfig(fs, config, project_dirname, SOURCE_DIR) {
@@ -50,8 +51,12 @@ function writeScreenConfig(fs, config, project_dirname, SOURCE_DIR) {
         config.modules.forEach(({ name }) => {
             if (_.filter(importedComponents, { key: name }).length === 0) {
                 const detailKey = name + "Detail"
-                importedComponents.push({ key: name, value: 'import ' + name + ' from "@/' + config.viewFolder + '/' + name + '/list.vue";' });
-                importedComponents.push({ key: detailKey, value: 'import ' + detailKey + ' from "@/' + config.viewFolder + '/' + name + '/detail.vue";' });
+                const detailPath = name + "/detail"
+                const editKey = name + "Edit"
+                const editPath = name + "/edit"
+                importedComponents.push({ key: name, value: 'import ' + name + ' from "@/' + config.viewFolder + '/' + name + '/list.vue";', path: name });
+                importedComponents.push({ key: detailKey, value: 'import ' + detailKey + ' from "@/' + config.viewFolder + '/' + name + '/detail.vue";', path: detailPath });
+                importedComponents.push({ key: editKey, value: 'import ' + editKey + ' from "@/' + config.viewFolder + '/' + name + '/edit.vue";', path: editPath });
             }
         });
 
@@ -59,7 +64,7 @@ function writeScreenConfig(fs, config, project_dirname, SOURCE_DIR) {
         let exportContent = "";
         _.forEach(importedComponents, (item) => {
             importContent += item.value + "\n";
-            exportContent += `{ path: '/${item.key}', component: ${item.key} },\n`;
+            exportContent += `{ path: '/${item.path}', component: ${item.key} },\n`;
         })
         const exportData = `export default [ \n${exportContent}]`;
         storeContent = importContent + exportData;

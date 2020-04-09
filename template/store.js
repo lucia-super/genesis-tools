@@ -13,7 +13,7 @@ export default {
         fetchList({ commit }, { payload } = {}) {
             commit('CHANGE_LIST_LOADING', true)
             // TODO api request
-            request("$placeholder_list", "GET", payload).then((data) => {
+            request("@placeholder_list", "GET", payload).then((data) => {
                 const mockData = {
                     result: [
                         { key: "template1", value: "1" },
@@ -36,7 +36,7 @@ export default {
         fetchDetail({ commit }, payload) {
             commit('CHANGE_CURRENT_LOADING', true)
             // TODO api request
-            request("$placeholder_get", "GET", payload).then((data) => {
+            request("@placeholder_get", "GET", payload).then((data) => {
                 const mockData = {
                     name: "templagte 1 detail"
                 }
@@ -49,7 +49,7 @@ export default {
         createEntry({ commit }, payload) {
             commit('CHANGE_CURRENT_LOADING', true)
             // TODO api request
-            request("$placeholder_edit", "POST", payload).then((data) => {
+            request("@placeholder_edit", "POST", payload).then((data) => {
                 const mockData = {
                     name: "templagte 1 detail"
                 }
@@ -62,7 +62,7 @@ export default {
         updateEntry({ commit }) {
             commit('CHANGE_CURRENT_LOADING', true)
             // TODO api request
-            request("$placeholder_edit", "PUT", payload).then((data) => {
+            request("@placeholder_edit", "PUT", payload).then((data) => {
                 const mockData = {
                     name: "templagte 1 detail"
                 }
@@ -76,7 +76,7 @@ export default {
         deleteEntry({ commit }) {
             commit('CHANGE_CURRENT_LOADING', true)
             // TODO api request
-            request("$placeholder_delete", "DELETE", payload).then((data) => {
+            request("@placeholder_delete", "DELETE", payload).then((data) => {
                 const mockData = {
                     name: "templagte 1 detail"
                 }

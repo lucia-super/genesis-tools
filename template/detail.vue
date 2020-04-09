@@ -11,9 +11,9 @@
     extends: BaseDetail,
     methods: {
       initialize() {
-        this.moduleType = "$placeholder";
+        this.moduleType = "@placeholder";
         this.fetchDetail();
-      }
-    }
+      },
+    },
   };
 </script>

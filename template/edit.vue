@@ -5,15 +5,15 @@
   </div>
 </template>
 <script>
-import BaseDetail from "../../base/BaseDetail";
+  import BaseDetail from "../../base/BaseDetail";
 
-export default {
-  extends: BaseDetail,
-  methods: {
-    initialize() {
-      this.moduleType = "$placeholder";
-      this.fetchDetail();
-    }
-  }
-};
+  export default {
+    extends: BaseDetail,
+    methods: {
+      initialize() {
+        this.moduleType = "@placeholder";
+        this.fetchDetail();
+      },
+    },
+  };
 </script>
