@@ -1,13 +1,14 @@
 {
   "name": "genesis-tools",
   "description": "auto generate business structure",
-  "version": "0.1.18",
+  "version": "0.1.19alpha",
   "scripts": {
     "start": "node index"
   },
   "author": "lucia-super",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
     "lodash": "^4.17.15"
   }
 }

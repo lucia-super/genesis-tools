@@ -7,11 +7,16 @@ function writeStore(fs, config, project_dirname, genesis_dirname, SOURCE_DIR) {
         config.modules.forEach(element => {
             const folder = project_dirname + "/" + SOURCE_DIR + "/" + config.storeFolder + "/" + element.name;
             const isExist = fs.existsSync(folder);
+            const { apis } = element;
+            let preHandledData = ""
+            _.forOwn(apis, (value, key) => {
+                preHandledData = data.replace("$placeholder_" + key, value);
+            })
             if (!isExist) {
                 fs.mkdirSync(folder);
-                fs.writeFileSync(folder + "/index.js", data);
+                fs.writeFileSync(folder + "/index.js", preHandledData);
             } else if (isExist && element.update) {
-                fs.writeFileSync(folder + "/index.js", data);
+                fs.writeFileSync(folder + "/index.js", preHandledData);
             }
         });
     } else {
