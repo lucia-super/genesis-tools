@@ -14,20 +14,7 @@ export default {
             commit('CHANGE_LIST_LOADING', true)
             // TODO api request
             request("@placeholder_list", "GET", payload).then((response) => {
-                console.log(response)
-                const mockData = {
-                    result: [
-                        { key: "template1", value: "1" },
-                        { key: "template2", value: "2" },
-                        { key: "template3", value: "4" }],
-                    pagination: {
-                        size: 10,
-                        page: payload.pagination.page,
-                        amount: 3,
-                        totalPages: 1
-                    }
-                }
-                const { result: data, pagination } = mockData
+                const { result: data, pagination } = response.data
                 commit('SAVE_LIST_DATA', { data, pagination, conditions: payload.conditions })
             }).catch((error) => {
                 console.warn(error)
