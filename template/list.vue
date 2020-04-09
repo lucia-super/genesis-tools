@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <div>List PAGE</div>
     <div style="list-style: none; display: flex; margin: 20px;">
       <label>name: </label> <input type="text" :value="conditions.value" />
       <button type="button" @click="fetchList()">search</button>
@@ -11,6 +12,7 @@
         <td>{{ item.value }}</td>
         <td>
           <a href="javascript:void(0);" @click="gotoDetail()">more</a>
+          <a href="javascript:void(0);" @click="gotoEdit()">edit</a>
         </td>
       </tr>
     </table>

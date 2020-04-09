@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <div>Edit PAGE</div>
     {{ this.detail }}
     <a href="javascript:void(0);" @click="onBack()">back</a>
   </div>

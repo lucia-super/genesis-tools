@@ -81,6 +81,12 @@ export default {
             this.$router.push(this.moduleType + "/detail");
         },
         /**
+        * 默认的去编辑页面
+        */
+        gotoEdit() {
+            this.$router.push(this.moduleType + "/edit");
+        },
+        /**
         * 加载更多功能，这里跟其他列表不一样，针对load more功能定制方法
         */
         onLoadMore() {
