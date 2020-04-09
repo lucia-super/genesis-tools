@@ -2,15 +2,15 @@
 var _ = require('lodash');
 
 function writeStore(fs, config, project_dirname, genesis_dirname, SOURCE_DIR) {
-    const data = fs.readFileSync(genesis_dirname + "/template/store.js")
+    const data = fs.readFileSync(genesis_dirname + "/template/store.js", 'utf8')
     if (data) {
         config.modules.forEach(element => {
             const folder = project_dirname + "/" + SOURCE_DIR + "/" + config.storeFolder + "/" + element.name;
             const isExist = fs.existsSync(folder);
             const { apis } = element;
-            let preHandledData = ""
+            let preHandledData = data
             _.forOwn(apis, (value, key) => {
-                preHandledData = data.replace("$placeholder_" + key, value);
+                preHandledData = preHandledData.replace("$placeholder_" + key, value);
             })
             if (!isExist) {
                 fs.mkdirSync(folder);
