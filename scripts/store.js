@@ -6,17 +6,21 @@ function writeStore(fs, config, project_dirname, genesis_dirname, SOURCE_DIR) {
     if (data) {
         config.modules.forEach(element => {
             const folder = project_dirname + "/" + SOURCE_DIR + "/" + config.storeFolder + "/" + element.name;
-            const isExist = fs.existsSync(folder);
+            const targetFile = folder + "/index.js";
+
             const { apis } = element;
             let preHandledData = data
             _.forOwn(apis, (value, key) => {
                 preHandledData = preHandledData.replace(new RegExp("@placeholder_" + key, "gm"), value);
             })
+
+            const isExist = fs.existsSync(folder);
+            const isFileExist = fs.existsSync(targetFile);
             if (!isExist) {
                 fs.mkdirSync(folder);
-                fs.writeFileSync(folder + "/index.js", preHandledData);
-            } else if (isExist && element.update) {
-                fs.writeFileSync(folder + "/index.js", preHandledData);
+            }
+            if (!isFileExist || (isFileExist && element.update)) {
+                fs.writeFileSync(targetFile, preHandledData);
             }
         });
     } else {
