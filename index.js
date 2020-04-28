@@ -21,6 +21,7 @@ store.writeStoreConfig(fs, config, PROJECT_DIR, SOURCE_DIR);
 screen.writeScreenConfig(fs, config, PROJECT_DIR, SOURCE_DIR)
 
 // copy base
+// hardCopyBase: 是否需要强制替换
 const { hardCopyBase } = config;
 const common = GENESIS_DIR + "/common";
 

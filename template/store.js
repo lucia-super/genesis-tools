@@ -12,7 +12,7 @@ export default {
     actions: {
         fetchList({ commit }, { payload } = {}) {
             commit('CHANGE_LIST_LOADING', true)
-            request("@placeholder_list", "GET", payload).then((response) => {
+            request("@placeholder_list", "POST", payload).then((response) => {
                 const { result: data, pagination } = response.data
                 commit('SAVE_LIST_DATA', { data, pagination, conditions: payload.conditions })
             }).catch((error) => {
