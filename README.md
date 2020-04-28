@@ -40,9 +40,9 @@
 
 TODO：
 
-1. 传递参数放入 url request 中
+1. 传递参数放入 url request 中 -- get list detail done
 2. axios 的全局拦截，异常处理，及配置默认的错误页面
 3. bug 修复：
-   目前文件删除，文件夹遗留的话，会无法新生成模版文件
+   目前文件删除，文件夹遗留的话，会无法新生成模版文件 -- fix
    router 和 view 中如果不是 index.js，或者不存在的情况下，这里也会有问题，需要增强配置的灵活性
 4. 建立 global 的 store 数据模型，及预加载还是懒加载模式
