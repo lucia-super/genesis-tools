@@ -21,9 +21,9 @@ export default {
             })
             commit('CHANGE_LIST_LOADING', false)
         },
-        fetchDetail({ commit }, payload) {
+        fetchDetail({ commit }, id) {
             commit('CHANGE_CURRENT_LOADING', true)
-            request("@placeholder_get", "GET", payload).then((response) => {
+            request("@placeholder_detail/" + id, "GET", id).then((response) => {
                 commit('SAVE_CURRENT_DETAIL', response.data)
             }).catch((error) => {
                 console.warn(error)
@@ -51,9 +51,9 @@ export default {
             })
             commit('CHANGE_CURRENT_LOADING', false)
         },
-        deleteEntry({ commit }, payload) {
+        deleteEntry({ commit }, id) {
             commit('CHANGE_CURRENT_LOADING', true)
-            request("@placeholder_delete", "DELETE", payload).then(() => {
+            request("@placeholder_delete/" + id, "DELETE").then(() => {
                 commit('SAVE_CURRENT_DETAIL', null)
             }).catch((error) => {
                 console.warn(error)

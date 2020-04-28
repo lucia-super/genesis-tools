@@ -45,7 +45,7 @@ export default {
                 if (this.moduleType) {
                     dispatch(`${this.moduleType}/fetchList`, {
                         payload: {
-                            pagination: { page, size: this.pageSize },
+                            pagination: { page, size: this.pagination.size },
                             conditions: this.conditions
                         }
                     })
