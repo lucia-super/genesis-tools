@@ -8,7 +8,7 @@ function writeScreenBase(screenName, fs, config, project_dirname, genesis_dirnam
             const targetFolder = project_dirname + "/" + SOURCE_DIR + "/" + config.viewFolder + "/" + element.name;
             const targetFile = targetFolder + "/" + screenName;
 
-            const preHandledData = data.replace("@placeholder", element.name);
+            const preHandledData = data.replace("@MODULE_PLACEHOLDER", element.name);
 
             const isExist = fs.existsSync(targetFolder);
             const isFileExist = fs.existsSync(targetFile);

@@ -12,7 +12,7 @@ export default {
     actions: {
         fetchList({ commit }, { payload } = {}) {
             commit('CHANGE_LIST_LOADING', true)
-            request("@placeholder_list", "POST", payload).then((response) => {
+            request("@MODULE_PLACEHOLDER_LIST", "POST", payload).then((response) => {
                 const { result: data, pagination } = response.data
                 commit('SAVE_LIST_DATA', { data, pagination, conditions: payload.conditions })
             }).catch((error) => {
@@ -23,7 +23,7 @@ export default {
         },
         fetchDetail({ commit }, id) {
             commit('CHANGE_CURRENT_LOADING', true)
-            request("@placeholder_detail/" + id, "GET", id).then((response) => {
+            request("@MODULE_PLACEHOLDER_DETAIL/" + id, "GET", id).then((response) => {
                 commit('SAVE_CURRENT_DETAIL', response.data)
             }).catch((error) => {
                 console.warn(error)
@@ -33,7 +33,7 @@ export default {
         },
         createEntry({ commit }, payload) {
             commit('CHANGE_CURRENT_LOADING', true)
-            request("@placeholder_edit", "POST", payload).then((response) => {
+            request("@MODULE_PLACEHOLDER_EDIT", "POST", payload).then((response) => {
                 commit('SAVE_CURRENT_DETAIL', response.data)
             }).catch((error) => {
                 console.warn(error)
@@ -43,7 +43,7 @@ export default {
         },
         updateEntry({ commit }, payload) {
             commit('CHANGE_CURRENT_LOADING', true)
-            request("@placeholder_edit", "PUT", payload).then((response) => {
+            request("@MODULE_PLACEHOLDER_EDIT", "PUT", payload).then((response) => {
                 commit('SAVE_CURRENT_DETAIL', response.data)
             }).catch((error) => {
                 console.warn(error)
@@ -53,7 +53,7 @@ export default {
         },
         deleteEntry({ commit }, id) {
             commit('CHANGE_CURRENT_LOADING', true)
-            request("@placeholder_delete/" + id, "DELETE").then(() => {
+            request("@MODULE_PLACEHOLDER_DELETE/" + id, "DELETE").then(() => {
                 commit('SAVE_CURRENT_DETAIL', null)
             }).catch((error) => {
                 console.warn(error)

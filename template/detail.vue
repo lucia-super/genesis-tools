@@ -11,21 +11,21 @@
   </div>
 </template>
 <script>
-  import BaseDetail from "../../base/BaseDetail";
+import BaseDetail from "../../base/BaseDetail";
 
-  export default {
-    extends: BaseDetail,
-    methods: {
-      initialize() {
-        this.moduleType = "@placeholder";
-        this.fetchDetail(1);
-      },
-      /**
-       * 默认的去编辑页面
-       */
-      gotoEdit() {
-        this.$router.push({ name: this.moduleType + "Edit" });
-      },
+export default {
+  extends: BaseDetail,
+  methods: {
+    initialize() {
+      this.moduleType = "@MODULE_PLACEHOLDER";
+      this.fetchDetail(1);
     },
-  };
+    /**
+     * 默认的去编辑页面
+     */
+    gotoEdit() {
+      this.$router.push({ name: this.moduleType + "Edit" });
+    }
+  }
+};
 </script>

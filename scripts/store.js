@@ -11,7 +11,7 @@ function writeStore(fs, config, project_dirname, genesis_dirname, SOURCE_DIR) {
             const { apis } = element;
             let preHandledData = data
             _.forOwn(apis, (value, key) => {
-                preHandledData = preHandledData.replace(new RegExp("@placeholder_" + key, "gm"), value);
+                preHandledData = preHandledData.replace(new RegExp("@MODULE_PLACEHOLDER_" + key, "gm"), value);
             })
 
             const isExist = fs.existsSync(folder);
