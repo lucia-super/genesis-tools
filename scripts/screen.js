@@ -64,7 +64,7 @@ function writeScreenConfig(fs, config, project_dirname, SOURCE_DIR) {
         let exportContent = "";
         _.forEach(importedComponents, (item) => {
             importContent += item.value + "\n";
-            exportContent += `{ name:'${item.key}', path: '/${item.path}', component: ${item.key} },\n`;
+            exportContent += `{ path: '/${item.path}', name:'${item.key}', component: ${item.key} },\n`;
         })
         const exportData = `export default [ \n${exportContent}]`;
         storeContent = importContent + exportData;

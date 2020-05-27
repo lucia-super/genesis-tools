@@ -2,6 +2,8 @@
   "name": "genesis-tools",
   "description": "auto generate business structure",
   "version": "0.1.23",
+  "main": "index.js",
+  "repository": "https://github.com/lucia-super/genesis-tools",
   "scripts": {
     "start": "node index"
   },
