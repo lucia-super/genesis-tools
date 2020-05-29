@@ -1,0 +1,25 @@
+{
+    "name": "genesis",
+    "sourceFolder": "src",
+    "moduleFolder": "modules",
+    "hardCopyBase": false,
+    "modules": [{
+        "name": "school",
+        "update": false,
+        "apis": {
+            "list": "school/list",
+            "detail": "school/detail",
+            "edit": "school/detail",
+            "delete": "school"
+        }
+    }, {
+        "name": "students",
+        "update": false,
+        "apis": {
+            "list": "students/list",
+            "detail": "students/detail",
+            "edit": "students/detail",
+            "delete": "students"
+        }
+    }]
+}
