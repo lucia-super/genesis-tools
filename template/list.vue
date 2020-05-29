@@ -20,22 +20,24 @@
 
     <ul style="list-style: none; display: flex;">
       <li>{{ pagination.page }}</li>
-      <a href="javascript:void(0);" @click="onPageChange(pagination.page + 1)">下一页</a>
+      <a href="javascript:void(0);" @click="onPageChange(pagination.page + 1)"
+        >下一页</a
+      >
     </ul>
   </div>
 </template>
 <script>
-import baseList from "../../base/BaseList";
+  import baseList from "@/base/BaseList";
 
-export default {
-  extends: baseList,
-  data() {
-    return {
-      moduleType: "@MODULE_PLACEHOLDER",
-      conditions: {
-        value: "123"
-      }
-    };
-  }
-};
+  export default {
+    extends: baseList,
+    data() {
+      return {
+        moduleType: "@MODULE_PLACEHOLDER",
+        conditions: {
+          value: "123",
+        },
+      };
+    },
+  };
 </script>
