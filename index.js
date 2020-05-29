@@ -6,7 +6,7 @@ let PROJECT_DIR = path.dirname("../")
 //当前目录
 const GENESIS_DIR = __dirname
 //读取配置文件，变量config的类型是Object类型
-var config = require('../genesis.json');
+var config = require('../../genesis.json');
 //目标代码目录
 const SOURCE_DIR = config.sourceFolder || "src"
 

@@ -57,7 +57,6 @@ function writeScreenBase(current_dirname, element_folder, element, screenName) {
 }
 
 function writeScreenConfig(config, element_folder, element) {
-    const readline = require('readline');
     const router_folder = element_folder + "/" + Constants.routerFolder;
     checkAndCreateFolder(router_folder);
     const targetFile = router_folder + "/index.js";
@@ -76,12 +75,37 @@ function writeScreenConfig(config, element_folder, element) {
     }
 }
 
+function writeConfig(config, modules, module_folder) {
+    const targetStoreFile = module_folder + "/store.js";
+    const targetRouterFile = module_folder + "/router.js";
+    const isStoreFileExist = fs.existsSync(targetStoreFile);
+    const isRouterFileExist = fs.existsSync(targetRouterFile);
+
+    let preStoreData = "";
+    let preRouterData = "";
+    _.forEach(modules, (name) => {
+        preStoreData += `import ${name} from "@/${config.moduleFolder}/${name}/${Constants.storeFolder}/index.js";`
+        preRouterData += `import ${name} from "@/${config.moduleFolder}/${name}/${Constants.routerFolder}/index.js";`
+    })
+    preStoreData += `export default {${modules.toString()}}`
+    preRouterData += `export default [...${_.join(modules, ",...")}]`
+
+    if (!isStoreFileExist || (isStoreFileExist && config.update)) {
+        fs.writeFileSync(targetStoreFile, preStoreData);
+    }
+
+    if (!isRouterFileExist || (isRouterFileExist && config.update)) {
+        fs.writeFileSync(targetRouterFile, preRouterData);
+    }
+}
+
 function writeModule(config, project_dirname, current_dirname, SOURCE_DIR) {
     if (config.modules) {
         const module_folder_config = config.moduleFolder || "modules";
         const module_folder = project_dirname + "/" + SOURCE_DIR + "/" + module_folder_config;
         checkAndCreateFolder(module_folder);
 
+        const modules = []
         config.modules.forEach(element => {
             const element_folder = module_folder + "/" + element.name;
             checkAndCreateFolder(element_folder);
@@ -93,7 +117,10 @@ function writeModule(config, project_dirname, current_dirname, SOURCE_DIR) {
             writeScreenBase(current_dirname, element_folder, element, "edit.vue")
 
             writeScreenConfig(config, element_folder, element)
+            modules.push(element.name)
         });
+
+        writeConfig(config, modules, module_folder);
     } else {
         //失败就抛出异常，具体代码操作按实际需求来写
         throw (new Error("读取配置文件genesis.json格式异常, 请检查genesis配置。"))
