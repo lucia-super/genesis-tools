@@ -129,18 +129,18 @@ function writeModule(config, project_dirname, current_dirname, SOURCE_DIR) {
         const storeContent = readFile.readFile(rootStoreFile)
         const storeExist = _.find(storeContent.importedComponents, { key: "store" })
         if (!storeExist) {
-            storeContent.importedComponents.add({ key: "store", value: "@/modules/router.js" })
-            storeContent.exports.add("...store")
-            readFile.updateFile(readFile, storeContent)
+            storeContent.importedComponents.push({ key: "store", value: "@/modules/router.js" })
+            storeContent.exportComponents.push("...store")
+            readFile.updateFile(rootStoreFile, storeContent)
         }
 
         const rootRouterFile = src_folder + "/" + config.store || "router.js";
-        const routerContent = readFile.readFile(rootStoreFile)
+        const routerContent = readFile.readFile(rootRouterFile)
         const routerExist = _.find(storeContent.importedComponents, { key: "router" })
         if (!routerExist) {
-            routerContent.importedComponents.add({ key: "router", value: "@/modules/store.js" })
-            routerContent.exports.add("...router")
-            readFile.updateFile(readFile, routerContent)
+            routerContent.importedComponents.push({ key: "router", value: "@/modules/store.js" })
+            routerContent.exportComponents.push("...router")
+            readFile.updateFile(rootRouterFile, routerContent)
         }
     } else {
         //失败就抛出异常，具体代码操作按实际需求来写

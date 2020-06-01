@@ -33,13 +33,13 @@ function readFile(filePath) {
 }
 
 function updateFile(filePath, content) {
-    const writeContent = ""
+    let writeContent = ""
     _.forEach(content.importedComponents, (itemValue) => {
         if (itemValue) {
             writeContent = `import ${itemValue.key} from "${itemValue.value}";\n`
         }
     })
-    const exportString = ""
+    let exportString = ""
     _.forEach(content.exportArray, (itemValue) => {
         if (itemValue) {
             exportString += `${itemValue},`;
