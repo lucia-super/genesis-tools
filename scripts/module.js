@@ -101,8 +101,9 @@ function writeConfig(config, modules, module_folder) {
 
 function writeModule(config, project_dirname, current_dirname, SOURCE_DIR) {
     if (config.modules) {
+        const src_folder = project_dirname + "/" + SOURCE_DIR
         const module_folder_config = config.moduleFolder || "modules";
-        const module_folder = project_dirname + "/" + SOURCE_DIR + "/" + module_folder_config;
+        const module_folder = src_folder + "/" + module_folder_config;
         checkAndCreateFolder(module_folder);
 
         const modules = []
@@ -121,6 +122,26 @@ function writeModule(config, project_dirname, current_dirname, SOURCE_DIR) {
         });
 
         writeConfig(config, modules, module_folder);
+
+        //写入引用目录
+        var readFile = require('./lib/readFile');
+        const rootStoreFile = src_folder + "/" + config.store || "store.js";
+        const storeContent = readFile.readFile(rootStoreFile)
+        const storeExist = _.find(storeContent.importedComponents, { key: "store" })
+        if (!storeExist) {
+            storeContent.importedComponents.add({ key: "store", value: "@/modules/router.js" })
+            storeContent.exports.add("...store")
+            readFile.updateFile(readFile, storeContent)
+        }
+
+        const rootRouterFile = src_folder + "/" + config.store || "router.js";
+        const routerContent = readFile.readFile(rootStoreFile)
+        const routerExist = _.find(storeContent.importedComponents, { key: "router" })
+        if (!routerExist) {
+            routerContent.importedComponents.add({ key: "router", value: "@/modules/store.js" })
+            routerContent.exports.add("...router")
+            readFile.updateFile(readFile, routerContent)
+        }
     } else {
         //失败就抛出异常，具体代码操作按实际需求来写
         throw (new Error("读取配置文件genesis.json格式异常, 请检查genesis配置。"))
