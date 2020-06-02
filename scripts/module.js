@@ -125,7 +125,7 @@ function writeModule(config, project_dirname, current_dirname, SOURCE_DIR) {
 
         //写入引用目录
         var readFile = require('./lib/readFile');
-        const rootStoreFile = src_folder + "/" + config.store || "store.js";
+        const rootStoreFile = src_folder + "/" + (config.store ? config.store : "store.js");
         const storeContent = readFile.readFile(rootStoreFile)
         const storeExist = _.find(storeContent.importedComponents, { key: "store" })
         if (!storeExist) {
@@ -134,7 +134,7 @@ function writeModule(config, project_dirname, current_dirname, SOURCE_DIR) {
             readFile.updateFile(rootStoreFile, storeContent)
         }
 
-        const rootRouterFile = src_folder + "/" + config.router || "router.js";
+        const rootRouterFile = src_folder + "/" + (config.router ? config.router : "router.js");
         const routerContent = readFile.readFile(rootRouterFile)
         const routerExist = _.find(routerContent.importedComponents, { key: "router" })
         if (!routerExist) {
