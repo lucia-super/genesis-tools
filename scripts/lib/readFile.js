@@ -21,8 +21,8 @@ function readFile(filePath) {
                 }
             })
         }
-        const exportString = contentArray[1].replace("default", "").trim();
-        const handledString = exportString.substr(1, exportString.length - 2).trim();
+        const exportString = contentArray[1].replace("default", "").replace(";", "").trim();
+        const handledString = exportString.trim().substr(1, exportString.length - 2).trim();
         if (handledString.indexOf("}") > -1) {
             exportIsArray = true
             exportArray = handledString.split("},");
@@ -48,7 +48,7 @@ function updateFile(filePath, content) {
     _.forEach(content.exportComponents, (itemValue, index) => {
         exportString += `${itemValue}${index != content.exportComponents.length - 1 ? ", " : ""}`;
     })
-    writeContent = writeContent + `export default ${content.exportIsArray ? "[" : "{"} ${exportString} ${content.exportIsArray ? "]" : "}"}`;
+    writeContent = writeContent + `export default ${content.exportIsArray ? "[" : "{"} ${exportString} ${content.exportIsArray ? "];" : "};"}`;
     fs.writeFileSync(filePath, writeContent);
 }
 
