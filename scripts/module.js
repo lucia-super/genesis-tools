@@ -129,16 +129,16 @@ function writeModule(config, project_dirname, current_dirname, SOURCE_DIR) {
         const storeContent = readFile.readFile(rootStoreFile)
         const storeExist = _.find(storeContent.importedComponents, { key: "store" })
         if (!storeExist) {
-            storeContent.importedComponents.push({ key: "store", value: "@/modules/router.js" })
+            storeContent.importedComponents.push({ key: "store", value: "@/modules/store.js" })
             storeContent.exportComponents.push("...store")
             readFile.updateFile(rootStoreFile, storeContent)
         }
 
-        const rootRouterFile = src_folder + "/" + config.store || "router.js";
+        const rootRouterFile = src_folder + "/" + config.router || "router.js";
         const routerContent = readFile.readFile(rootRouterFile)
-        const routerExist = _.find(storeContent.importedComponents, { key: "router" })
+        const routerExist = _.find(routerContent.importedComponents, { key: "router" })
         if (!routerExist) {
-            routerContent.importedComponents.push({ key: "router", value: "@/modules/store.js" })
+            routerContent.importedComponents.push({ key: "router", value: "@/modules/router.js" })
             routerContent.exportComponents.push("...router")
             readFile.updateFile(rootRouterFile, routerContent)
         }

@@ -6,7 +6,7 @@ function readFile(filePath) {
 
     const importedComponents = [];
     const exportComponents = [];
-    const exportIsArray = false;
+    let exportIsArray = false;
     if (content.indexOf("export") > -1) {
         const contentArray = content.split("export");
         const importString = contentArray[0];
@@ -14,8 +14,10 @@ function readFile(filePath) {
             importArray = importString.split("import");
             _.forEach(importArray, (itemValue) => {
                 if (itemValue) {
-                    itemArray = itemValue.split("from")
-                    importedComponents.push({ key: itemArray[0].trim(), value: itemArray[1].trim() });
+                    itemArray = itemValue.split("from");
+                    importValue = itemArray[1].trim().toString();
+                    console.log(importValue)
+                    importedComponents.push({ key: itemArray[0].trim(), value: importValue.replace(new RegExp("[\'\";]", "g"), "") });
                 }
             })
         }
@@ -25,7 +27,12 @@ function readFile(filePath) {
             exportIsArray = true
             exportArray = handledString.split("},");
             _.forEach(exportArray, (itemValue) => {
-                exportComponents.push(itemValue.indexOf("{") > -1 ? itemValue + "}" : itemValue.trim());
+                exportComponents.push(itemValue.indexOf("{") > -1 ? itemValue : itemValue.trim());
+            })
+        } else {
+            exportArray = handledString.split(",");
+            _.forEach(exportArray, (itemValue) => {
+                exportComponents.push(itemValue.trim());
             })
         }
     }
@@ -35,15 +42,11 @@ function readFile(filePath) {
 function updateFile(filePath, content) {
     let writeContent = ""
     _.forEach(content.importedComponents, (itemValue) => {
-        if (itemValue) {
-            writeContent = `import ${itemValue.key} from "${itemValue.value}";\n`
-        }
+        writeContent += `import ${itemValue.key} from "${itemValue.value}";\n`
     })
     let exportString = ""
-    _.forEach(content.exportArray, (itemValue) => {
-        if (itemValue) {
-            exportString += `${itemValue},`;
-        }
+    _.forEach(content.exportComponents, (itemValue, index) => {
+        exportString += `${itemValue}${index != content.exportComponents.length - 1 ? ", " : ""}`;
     })
     writeContent = writeContent + `export default ${content.exportIsArray ? "[" : "{"} ${exportString} ${content.exportIsArray ? "]" : "}"}`;
     fs.writeFileSync(filePath, writeContent);
