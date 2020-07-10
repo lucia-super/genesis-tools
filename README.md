@@ -10,7 +10,7 @@
 {
     "name": "genesis", // 工程名字：optional
     "sourceFolder": "src", // 代码目录： required
-    "moduleFolder": "modules", // redux的store的引入目录： required
+    "moduleFolder": "modules", // 模块存储位置： 默认为src/modules required
     "store": "store.js", // store配置的目录： 工程名字：optional 默认为 src/store.js
     "router": "router.js", // router配置的目录 optional 默认为 src/router.js
     "hardCopyBase": false, // 是否需要硬拷贝所有base文件：optional
