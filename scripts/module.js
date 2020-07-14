@@ -4,7 +4,8 @@ var fs = require('fs');
 const Constants = {
     storeFolder: "store",
     viewFolder: "view",
-    routerFolder: "router"
+    routerFolder: "router",
+    modulesStateFile: "modules.js"
 }
 
 function checkAndCreateFolder(folderPath) {
@@ -78,6 +79,8 @@ function writeScreenConfig(config, element_folder, element) {
 function writeConfig(config, modules, module_folder) {
     const targetStoreFile = module_folder + "/store.js";
     const targetRouterFile = module_folder + "/router.js";
+
+    const targetModulesFile = module_folder + "/" + Constants.modulesStateFile;
     const isStoreFileExist = fs.existsSync(targetStoreFile);
     const isRouterFileExist = fs.existsSync(targetRouterFile);
 
@@ -87,14 +90,24 @@ function writeConfig(config, modules, module_folder) {
         preStoreData += `import ${name} from "@/${config.moduleFolder}/${name}/${Constants.storeFolder}/index.js";`
         preRouterData += `import ${name} from "@/${config.moduleFolder}/${name}/${Constants.routerFolder}/index.js";`
     })
-    preStoreData += `export default {${modules.toString()}}`
-    preRouterData += `export default [...${_.join(modules, ",...")}]`
+
+    // 把模块配置写入state
+    const modulesData = `export default {
+        namespaced: true,
+        state: {
+            modules: ${config.modules}
+        }
+    }`
+    fs.writeFileSync(targetModulesFile, modulesData)
 
     if (!isStoreFileExist || (isStoreFileExist && config.update)) {
+        preStoreData += `import modules from "@/${config.moduleFolder}/${Constants.modulesStateFile}";`
+        preStoreData += `export default {${modules.toString()}, modules}`
         fs.writeFileSync(targetStoreFile, preStoreData);
     }
 
     if (!isRouterFileExist || (isRouterFileExist && config.update)) {
+        preRouterData += `export default [...${_.join(modules, ",...")}]`
         fs.writeFileSync(targetRouterFile, preRouterData);
     }
 }
